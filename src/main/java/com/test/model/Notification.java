@@ -1,9 +1,6 @@
 package com.test.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Notification {
@@ -12,7 +9,8 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int comment_id;
+    @Column(name = "comment_id")
+    private int commentId;
 
     private String time;
 
@@ -26,12 +24,12 @@ public class Notification {
         this.id = id;
     }
 
-    public int getComment_id() {
-        return comment_id;
+    public int getCommentId() {
+        return commentId;
     }
 
-    public void setComment_id(int comment_id) {
-        this.comment_id = comment_id;
+    public void setCommentId(int comment_id) {
+        this.commentId = comment_id;
     }
 
     public String getTime() {
@@ -54,7 +52,7 @@ public class Notification {
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", comment_id=" + comment_id +
+                ", comment_id=" + commentId +
                 ", time='" + time + '\'' +
                 ", delivered=" + delivered +
                 '}';

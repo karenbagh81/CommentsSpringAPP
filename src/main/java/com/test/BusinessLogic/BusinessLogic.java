@@ -12,9 +12,11 @@ public class BusinessLogic {
 
     public static void doSomeWorkOnNotification() {
         sleepAndRandomThrowRuntimeException(2, 10);
+       // throw new RuntimeException();
     }
 
     public static void doSomeWorkOnCommentCreation() {
         sleepAndRandomThrowRuntimeException(1, 30);
+        //throw new RuntimeException();
     }
 }
