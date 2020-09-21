@@ -1,22 +1,25 @@
 package com.test.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
+//@JsonIgnoreProperties("comment")
 public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int comment_id;
+    private Date time;
 
-    private String time;
+    private boolean delivered;
 
-    private  boolean delivered;
+    @OneToOne
+    private Comment comment;
 
     public int getId() {
         return id;
@@ -26,19 +29,11 @@ public class Notification {
         this.id = id;
     }
 
-    public int getComment_id() {
-        return comment_id;
-    }
-
-    public void setComment_id(int comment_id) {
-        this.comment_id = comment_id;
-    }
-
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -50,13 +45,37 @@ public class Notification {
         this.delivered = delivered;
     }
 
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notification that = (Notification) o;
+        return id == that.id &&
+                delivered == that.delivered &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, time, delivered, comment);
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", comment_id=" + comment_id +
                 ", time='" + time + '\'' +
                 ", delivered=" + delivered +
+                ", comment=" + comment +
                 '}';
     }
 }
