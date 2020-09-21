@@ -1,20 +1,24 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
+//@JsonIgnoreProperties("comment")
 public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "comment_id")
-    private int commentId;
+    private Date time;
 
-    private String time;
+    private boolean delivered;
 
-    private  boolean delivered;
+    @OneToOne
+    private Comment comment;
 
     public int getId() {
         return id;
@@ -24,19 +28,11 @@ public class Notification {
         this.id = id;
     }
 
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int comment_id) {
-        this.commentId = comment_id;
-    }
-
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -48,13 +44,37 @@ public class Notification {
         this.delivered = delivered;
     }
 
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notification that = (Notification) o;
+        return id == that.id &&
+                delivered == that.delivered &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, time, delivered, comment);
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", comment_id=" + commentId +
                 ", time='" + time + '\'' +
                 ", delivered=" + delivered +
+                ", comment=" + comment +
                 '}';
     }
 }

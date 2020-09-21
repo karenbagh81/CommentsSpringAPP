@@ -1,6 +1,7 @@
 package com.test.service.implementations;
 
 import com.test.BusinessLogic.BusinessLogic;
+import com.test.model.Comment;
 import com.test.model.Notification;
 import com.test.repository.NotificationRepository;
 import com.test.service.interfaces.NotificationService;
@@ -8,25 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
-
+   
     @Autowired
     private NotificationRepository notificationRepository;
 
     @Override
-    public void saveNotification(int commentId) {
-        //boolean delivered = false;
+    @Transactional
+    public void saveNotification(Comment comment) {
         Notification notification = new Notification();
-        Date date = new Date();
-        notification.setCommentId(commentId);
-        notification.setTime(date.toString());
-        notificationRepository.save(notification);
-        BusinessLogic.doSomeWorkOnNotification();
-        notification.setDelivered(true);
+        notification.setTime(new Date());
+        notification.setComment(comment);
+        try {
+            BusinessLogic.doSomeWorkOnNotification();
+            notification.setDelivered(true);
+        }catch (RuntimeException e){
+            e.getMessage();
+        }
+
         notificationRepository.save(notification);
     }
 

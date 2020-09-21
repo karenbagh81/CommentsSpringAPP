@@ -15,6 +15,7 @@ import java.util.Date;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+
     @Autowired
     private CommentRepository commentRepository;
 
@@ -23,15 +24,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     public void saveComment(Comment comment) {
-        Date date = new Date();
-        comment.setTime(date.toString());
-        commentRepository.save(comment);
+        comment.setTime(new Date());
+        Comment comment1 = commentRepository.save(comment);
         BusinessLogic.doSomeWorkOnCommentCreation();
-        try {
-            notificationService.saveNotification(comment.getId());
-        }catch (RuntimeException e){
-            e.getMessage();
-        }
+        notificationService.saveNotification(comment1);
     }
 
     @Override

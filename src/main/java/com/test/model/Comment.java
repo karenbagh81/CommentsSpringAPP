@@ -1,9 +1,9 @@
 package com.test.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
+
 
 @Entity
 public class Comment {
@@ -14,7 +14,8 @@ public class Comment {
 
     private String comment;
 
-    private String time;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date time;
 
     public int getId() {
         return id;
@@ -32,12 +33,27 @@ public class Comment {
         this.comment = comment;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment1 = (Comment) o;
+        return id == comment1.id &&
+                Objects.equals(comment, comment1.comment) &&
+                Objects.equals(time, comment1.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, comment, time);
     }
 
     @Override

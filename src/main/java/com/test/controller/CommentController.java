@@ -20,13 +20,13 @@ public class CommentController {
 
 
     @PutMapping("/save")
-    public ResponseEntity save(@Valid @RequestBody Comment comment) {
+    public ResponseEntity<Void> save(@Valid @RequestBody Comment comment) {
         commentService.saveComment(comment);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity getAll() {
+    public ResponseEntity<Page<Comment>> getAll() {
         Sort sort = Sort.by("comment");
         Pageable pageable = PageRequest.of(0, 10, sort);
         Page<Comment> page = commentService.getAll(pageable);
