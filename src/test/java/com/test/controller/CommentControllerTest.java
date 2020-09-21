@@ -54,11 +54,11 @@ public class CommentControllerTest {
         }
 
         System.out.println("Comments sended percent is " +
-                Math.round((commentsSendedCount / commentsCount) * 100) + "%");
+                (commentsSendedCount / commentsCount) * 100 + "%");
 
         if (commentsSendedCount != 0) {
             System.out.println("Notification delivered percent is " +
-                    Math.round((isDeliveredCount / commentsSendedCount) * 100) + "%");
+                    (isDeliveredCount / commentsSendedCount) * 100 + "%");
         } else {
             System.out.println("Notification delivered percent is 0%");
         }
