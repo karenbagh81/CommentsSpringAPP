@@ -30,13 +30,13 @@ public class CommentControllerTest {
 
     @Test
     public void saveCommentThousandTimes() {
-        int commentsCount = 30;
+        int commentsCount = 1000;
         double commentsSendedCount = 0;
         double isDeliveredCount = 0;
 
         for (int i = 0; i < commentsCount; i++) {
             Comment comment = new Comment();
-            comment.setComment("Send comment ********* " + i);
+            comment.setComment("Send comment -----********* " + i);
 
             try {
                 StatisticOfComentsAndDelivered statistic = commentService.saveComment(comment);
