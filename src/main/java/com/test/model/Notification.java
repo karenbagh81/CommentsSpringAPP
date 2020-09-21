@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -7,7 +8,6 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-//@JsonIgnoreProperties("comment")
 public class Notification {
 
     @Id
@@ -19,6 +19,7 @@ public class Notification {
     private boolean delivered;
 
     @OneToOne
+    //@JsonIgnore
     private Comment comment;
 
     public int getId() {
