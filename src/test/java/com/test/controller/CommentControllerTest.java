@@ -36,7 +36,7 @@ public class CommentControllerTest {
 
         for (int i = 0; i < commentsCount; i++) {
             Comment comment = new Comment();
-            comment.setComment("Send comment -----********* " + i);
+            comment.setComment("Send comment ------********* " + i);
 
             try {
                 StatisticOfComentsAndDelivered statistic = commentService.saveComment(comment);
