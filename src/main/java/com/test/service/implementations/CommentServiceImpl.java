@@ -1,6 +1,7 @@
 package com.test.service.implementations;
 
 import com.test.BusinessLogic.BusinessLogic;
+import com.test.BusinessLogic.StatisticOfComentsAndDelivered;
 import com.test.model.Comment;
 import com.test.repository.CommentRepository;
 import com.test.service.interfaces.CommentService;
@@ -23,11 +24,16 @@ public class CommentServiceImpl implements CommentService {
     private NotificationService notificationService;
 
     @Transactional
-    public void saveComment(Comment comment) {
+    public StatisticOfComentsAndDelivered saveComment(Comment comment) {
+        StatisticOfComentsAndDelivered statisticOfComentsAndDelivered = new StatisticOfComentsAndDelivered();
+        boolean isDelivered = false;
         comment.setTime(new Date());
         Comment comment1 = commentRepository.save(comment);
         BusinessLogic.doSomeWorkOnCommentCreation();
-        notificationService.saveNotification(comment1);
+        isDelivered = notificationService.saveNotification(comment1);
+        statisticOfComentsAndDelivered.setComment(comment1);
+        statisticOfComentsAndDelivered.setDelivered(isDelivered);
+        return statisticOfComentsAndDelivered;
     }
 
     @Override

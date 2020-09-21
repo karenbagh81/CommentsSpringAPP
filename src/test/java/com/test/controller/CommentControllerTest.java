@@ -1,5 +1,6 @@
 package com.test.controller;
 
+import com.test.BusinessLogic.StatisticOfComentsAndDelivered;
 import com.test.model.Comment;
 import com.test.service.interfaces.CommentService;
 import org.junit.Test;
@@ -15,22 +16,44 @@ public class CommentControllerTest {
     @Autowired
     private CommentService commentService;
 
+    @Test(timeout = 1000)
+    public void saveCommentShouldReturnFasterThanOneSecond() {
+        Comment comment = new Comment();
+        comment.setComment("Hi my friends");
+        try {
+            commentService.saveComment(comment);
+        } catch (RuntimeException e) {
+            e.getMessage();
+        }
 
-/*    @Test(timeout = 4000)
-    public void save() {
-        commentService.saveComment(comment);
-    }*/
+    }
 
     @Test
     public void saveThousandTimes() {
-        for (int i = 0; i < 10; i++) {
+        int commentsCount = 100;
+        double commentsSendedCount = 0;
+        double isDeliveredCount = 0;
+
+        for (int i = 0; i < commentsCount; i++) {
             Comment comment = new Comment();
-            comment.setComment("Send comment " + i);
+            comment.setComment("Send comment ********* " + i);
+
             try {
-                commentService.saveComment(comment);
+                StatisticOfComentsAndDelivered statistic = commentService.saveComment(comment);
+                if (statistic.getComment() != null) {
+                    commentsSendedCount++;
+
+                    if (statistic.isDelivered()) {
+                        isDeliveredCount++;
+                    }
+                }
             } catch (RuntimeException e) {
                 e.getMessage();
             }
+
         }
+
+        System.out.println("Comments sended percent is " + (commentsSendedCount / commentsCount) * 100 + "%");
+        System.out.println("Notification delivered percent is " + (isDeliveredCount / commentsSendedCount) * 100 + "%");
     }
 }

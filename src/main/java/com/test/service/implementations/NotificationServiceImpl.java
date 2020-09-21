@@ -15,24 +15,24 @@ import java.util.Date;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
-   
+
     @Autowired
     private NotificationRepository notificationRepository;
 
     @Override
     @Transactional
-    public void saveNotification(Comment comment) {
+    public boolean saveNotification(Comment comment) {
         Notification notification = new Notification();
         notification.setTime(new Date());
         notification.setComment(comment);
         try {
             BusinessLogic.doSomeWorkOnNotification();
             notification.setDelivered(true);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             e.getMessage();
         }
-
         notificationRepository.save(notification);
+        return notification.isDelivered();
     }
 
     @Override

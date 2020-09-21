@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface NotificationService {
 
-    void saveNotification(Comment comment);
+    boolean saveNotification(Comment comment);
 
     Page<Notification> getAll(Pageable pageable);
 }
