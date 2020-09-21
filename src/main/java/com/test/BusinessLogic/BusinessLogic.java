@@ -1,6 +1,7 @@
 package com.test.BusinessLogic;
 
 public class BusinessLogic {
+
     public static void sleepAndRandomThrowRuntimeException(int seconds, int exceptionProbabilityProc) {
         try {
             Thread.sleep((long) (seconds * 100 * Math.random()));
