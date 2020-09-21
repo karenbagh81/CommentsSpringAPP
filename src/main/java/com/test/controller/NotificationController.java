@@ -22,7 +22,7 @@ public class NotificationController {
 
     @GetMapping
     public ResponseEntity<Page<Notification>> getAll() {
-        Sort sort = Sort.by("commentId");
+        Sort sort = Sort.by("time");
         Pageable pageable = PageRequest.of(0, 10, sort);
         Page<Notification> page = notificationService.getAll(pageable);
         return ResponseEntity.ok(page);

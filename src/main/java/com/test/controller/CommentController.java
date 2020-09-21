@@ -27,7 +27,7 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<Page<Comment>> getAll() {
-        Sort sort = Sort.by("comment");
+        Sort sort = Sort.by("time");
         Pageable pageable = PageRequest.of(0, 10, sort);
         Page<Comment> page = commentService.getAll(pageable);
         return ResponseEntity.ok(page);

@@ -30,7 +30,7 @@ public class CommentControllerTest {
 
     @Test
     public void saveThousandTimes() {
-        int commentsCount = 100;
+        int commentsCount = 30;
         double commentsSendedCount = 0;
         double isDeliveredCount = 0;
 
@@ -53,7 +53,14 @@ public class CommentControllerTest {
 
         }
 
-        System.out.println("Comments sended percent is " + (commentsSendedCount / commentsCount) * 100 + "%");
-        System.out.println("Notification delivered percent is " + (isDeliveredCount / commentsSendedCount) * 100 + "%");
+        System.out.println("Comments sended percent is " +
+                Math.round((commentsSendedCount / commentsCount) * 100) + "%");
+
+        if (commentsSendedCount != 0) {
+            System.out.println("Notification delivered percent is " +
+                    Math.round((isDeliveredCount / commentsSendedCount) * 100) + "%");
+        } else {
+            System.out.println("Notification delivered percent is 0%");
+        }
     }
 }
