@@ -29,7 +29,7 @@ public class CommentControllerTest {
     }
 
     @Test
-    public void saveThousandTimes() {
+    public void saveCommentThousandTimes() {
         int commentsCount = 30;
         double commentsSendedCount = 0;
         double isDeliveredCount = 0;
